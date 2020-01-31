@@ -1,3 +1,6 @@
+//James Molina
+//2020-31-01
+
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
