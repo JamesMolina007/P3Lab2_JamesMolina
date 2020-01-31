@@ -4,6 +4,89 @@
 
 using namespace std;
 
+int unidades, decenas, centenas, millares;
+
+int menor( int numero ){
+	int* arreglo = new int[4];
+	int aux;
+	arreglo[0] = unidades;
+	arreglo[1] = decenas;
+	arreglo[2] = centenas;
+	arreglo[3] = millares;
+	for( int i = 0; i < 4; i++){
+		for( int j = 0; j < 3 ; j++){
+			if( arreglo[j] > arreglo[j+1] ){
+				aux = arreglo[j+1];
+				arreglo[j+1] = arreglo[j];
+				arreglo[j] = aux;		
+			}
+		}
+	}
+	return  arreglo[0]*1000+arreglo[1]*100+arreglo[2]*10+arreglo[3];
+}
+
+int mayor( int numero ){
+	int* arreglo = new int[4];
+        int aux;
+        arreglo[0] = unidades;
+        arreglo[1] = decenas;
+        arreglo[2] = centenas;
+        arreglo[3] = millares;
+	for( int i = 0; i < 4; i++){
+                for( int j = 0; j < 3 ; j++){
+                        if( arreglo[j] < arreglo[j+1] ){
+                                aux = arreglo[j+1];
+                                arreglo[j+1] = arreglo[j];
+           			arreglo[j] = aux;
+			}
+		}
+	}
+        return  arreglo[0]*1000+arreglo[1]*100+arreglo[2]*10+arreglo[3];
+
+}
+
+void numeros( int numero ){
+        unidades = ( numero % 10 );
+        decenas  = ( numero % 100 ) / 10;
+        centenas = ( numero % 1000 ) / 100;
+        millares = ( numero % 10000 ) / 1000;
+}
+
+
+void constante(int numero ){
+	int paso = 1;
+	while( numero != 6174 ){
+		int max = mayor( numero );
+		int min = menor( numero );
+		cout << paso << ". "  << max << " - " << min << " = " << max-min << endl;
+		paso++;
+		numero = max - min;
+		numeros( numero );		
+	}
+}
+
+
+bool validar( int numero ){
+	numeros( numero );
+	if( unidades == decenas || unidades == centenas || unidades == millares ) return false;
+	if( decenas == centenas || decenas == millares ) return false;
+	if( centenas == millares ) return false;
+}
+
+void kaprekar(){
+	int numero;
+	bool valido = true;
+	cout << endl << endl << "Ingrese un numero de 4 cifras distintas: ";
+	cin >> numero;
+	valido = validar( numero );
+	if( numero < 1000 || numero > 9999 ) valido = false;
+	if( valido ){
+		constante( numero );
+	}
+	else cout << "Solo se permiten numeros de 4 cifras y que todos sean distintos" << endl;
+		
+}
+
 void imprimir(int* arreglo, int tamano){
 	cout << endl;
 	for( int i = 0; i < tamano; i++){
@@ -15,7 +98,7 @@ void imprimir(int* arreglo, int tamano){
 void orden(int* arreglo, int tamano ){
 	int menor;
 	int aux, pos, inicio = 0;
-	for ( int i = 0; i < tamano - 1; i++ ){
+	for ( int i = 0; i < tamano ; i++ ){
 		menor = 100;
 		for( int j = inicio; j < tamano; j++){
 			if( arreglo[j] < menor ){
@@ -40,7 +123,6 @@ int* llenar(int tamano){
     	srand( time( NULL ) );
     	for(int i  = 0; i < tamano; i++){
         	numero = 0 + rand() % ( 99 );
-        	cout<< "[" << numero << "]";
 		arreglo[i] = numero;
     	}
 	imprimir(arreglo, tamano);
@@ -98,8 +180,12 @@ int main(){
 				arreglo();
 				break;
 			case 3: 
+				kaprekar();
 				break;
 
+			default: 
+				cout<< "Ingrese alguna opcion disponible" << endl;	
+				break;
 		}	
 	}
 }
