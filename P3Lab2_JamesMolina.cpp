@@ -98,7 +98,7 @@ void imprimir(int* arreglo, int tamano){
 void orden(int* arreglo, int tamano ){
 	int menor;
 	int aux, pos, inicio = 0;
-	for ( int i = 0; i < tamano ; i++ ){
+	for ( int i = 0; i < tamano  ; i++ ){
 		menor = 100;
 		for( int j = inicio; j < tamano; j++){
 			if( arreglo[j] < menor ){
@@ -106,12 +106,10 @@ void orden(int* arreglo, int tamano ){
 				pos = j;	
 			}
 		}
-		if( menor < arreglo[i] ){
-			aux = arreglo[i];
-			arreglo[i] = menor;
-			arreglo[pos] = aux;
-			inicio++;
-		}
+		aux = arreglo[i];
+		arreglo[i] = menor;
+		arreglo[pos] = aux;
+		inicio++;
 		cout << endl  <<"PASO "<< i+1 << ":" <<  endl;
 		imprimir( arreglo, tamano );
 	}
