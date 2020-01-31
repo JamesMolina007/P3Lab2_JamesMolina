@@ -1,6 +1,60 @@
 #include <iostream>
+#include <time.h>
+#include <stdlib.h>
 
 using namespace std;
+
+void imprimir(int* arreglo, int tamano){
+	cout << endl;
+	for( int i = 0; i < tamano; i++){
+		cout << "[" << arreglo[i] << "]";
+	}
+	cout << endl;
+}
+
+void orden(int* arreglo, int tamano ){
+	int menor;
+	int aux, pos, inicio = 0;
+	for ( int i = 0; i < tamano - 1; i++ ){
+		menor = 100;
+		for( int j = inicio; j < tamano; j++){
+			if( arreglo[j] < menor ){
+			       	menor = arreglo[j];
+				pos = j;	
+			}
+		}
+		if( menor < arreglo[i] ){
+			aux = arreglo[i];
+			arreglo[i] = menor;
+			arreglo[pos] = aux;
+			inicio++;
+		}
+		cout << endl  <<"PASO "<< i+1 << ":" <<  endl;
+		imprimir( arreglo, tamano );
+	}
+}
+
+int* llenar(int tamano){
+	int* arreglo = new int[tamano];
+	int numero;			
+    	srand( time( NULL ) );
+    	for(int i  = 0; i < tamano; i++){
+        	numero = 0 + rand() % ( 99 );
+        	cout<< "[" << numero << "]";
+		arreglo[i] = numero;
+    	}
+	imprimir(arreglo, tamano);
+	cout << endl << endl;
+	return arreglo;
+}
+
+void arreglo(){
+	int tamano;
+	cout << "Ingrese el tamaño del arreglo: ";
+	cin >> tamano;
+	int* arreglo = llenar( tamano );
+	orden( arreglo, tamano );
+}
 
 int calculoMCD( int num1, int num2 ){
 	int residuo;
@@ -41,7 +95,7 @@ int main(){
 				MCD();
 				break;
 			case 2:
-
+				arreglo();
 				break;
 			case 3: 
 				break;
