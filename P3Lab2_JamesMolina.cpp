@@ -171,6 +171,9 @@ int main(){
 		cin >>  opcion;
 		cout << endl << endl;
 		switch( opcion ){
+			case 0: 
+				cout << "Gracias Por Probrarme" << endl;
+				break;
 			case 1:
 				MCD();
 				break;
